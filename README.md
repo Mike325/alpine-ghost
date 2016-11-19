@@ -26,6 +26,10 @@ This image also runs with containers. It will accept a volume from your ghost co
 - PROD_DOMAIN: URL for Ghost Blog running in Production
 - PROD_FORCE_ADMIN_SSL: Force SSL (secure HTTP or https) for the admin panel in Production
 
+- USE_PROD_ENV: Copy the values of the Production variables to the Development variables (default to false)
+
+- PRELOAD_HEADERS: Number of headers to be preloaded (default to 25) 
+
 #### Mail ENV VARIABLES
 
 - DEV_MAIL_TRANSPORT: Type of Transport used for Development Email
@@ -51,6 +55,22 @@ This image also runs with containers. It will accept a volume from your ghost co
 - PROD_MAIL_PORT: Port of the SMTP server (defaults to 25, not needed with PROD_MAIL_SERVICE)
 - PROD_MAIL_IGNORE_TLS: Ignore server support for STARTTLS (defaults to false)
 - PROD_MAIL_DEBUG: Output client and server messages to console
+
+#### Database ENV VARIABLES
+
+- DEV_DB_CLIENT: Client of the Development database; sqlite3 (default) or mysql
+- DEV_DB_HOST: Hostname of the Development database server (not needed with sqlite3)
+- DEV_DB_USER: Username for the Development database (default root, not needed with sqlite3)
+- DEV_DB_PASS: Password for the Development database (default "blank", not needed with sqlite3)
+- DEV_DB_NAME: Name of the Development database (default ghost, not needed with sqlite3)
+- DEV_DB_PORT: Port of the Development database's host (default 3306 for mysql, not needed with sqlite3)
+
+- PROD_DB_CLIENT: Client of the Production database; sqlite3 (default) or mysql
+- PROD_DB_HOST: Hostname of the Production database server (not needed with sqlite3)
+- PROD_DB_USER: Username for the Production database (default root, not needed with sqlite3)
+- PROD_DB_PASS: Password for the Production database (default "blank", not needed with sqlite3)
+- PROD_DB_NAME: Name of the Production database (default ghost, not needed with sqlite3)
+- PROD_DB_PORT: Port of the Production database's host (default 3306 for mysql, not needed with sqlite3)
 
 ## Getting Started
 

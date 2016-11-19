@@ -1,5 +1,4 @@
 FROM zzrot/alpine-node:v4.4.2
-
 MAINTAINER ZZROT LLC <docker@zzrot.com>
 
 #ENV VARIABLES
@@ -16,6 +15,7 @@ RUN apk --no-cache add tar tini \
 	# && wget -O ghost.zip "https://ghost.org/archives/ghost-${GHOST_VERSION}.zip" \
 	&& unzip ghost.zip \
 	&& npm install --production \
+	&& npm install mysql \
 	&& rm ghost.zip \
 	&& apk del devs \
 	&& npm cache clean \

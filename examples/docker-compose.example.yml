@@ -1,25 +1,43 @@
-# Example Development Build
 version: '2'
+
 services:
-    ghost:
-        image: zzrot/alpine-ghost
+    mysql_ghost:
+        image: mysql:latest  
+        restart: always
+        container_name: mysql_ghost
         environment:
-          DEV_DOMAIN: http://192.168.99.100:2368
+            - MYSQL_ROOT_PASSWORD=ultrasecretpassword
+            - MYSQL_USER=changeme
+            - MYSQL_PASSWORD=pleasechangeme
+            - MYSQL_DATABASE=ghost
+
+    ghost_prod_db:
+        image: zzrot/alpine-ghost:latest
+        restart: always
+        container_name: ghost_prod_db
+        environment:
+            - PROD_DOMAIN=http://yourwebsiteurl.com/blog
+            - PROD_DB_CLIENT=mysql
+            - PROD_DB_HOST=mysql_ghost
+            - PROD_DB_USER=changeme
+            - PROD_DB_PASS=pleasechangeme
+            - PROD_DB_NAME=ghost
+            - PROD_DB_PORT=3306
+            - NODE_ENV=production
+        depends_on:
+            - mysql_ghost
         volumes:
           - ./your/contentfolder:/var/lib/ghost/
         ports:
-            - 2368:2368
+            - "2368:2368"
 
-
-# Example Production Build
-version: '2'
-services:
-    ghost:
-        image: zzrot/alpine-ghost
+    ghost_dev:
+        image: zzrot/alpine-ghost:latest
+        restart: always
+        container_name: ghost_dev
         environment:
-          PROD_DOMAIN: http://yourwebsiteurl.com/blog
-          NODE_ENV: production
+            - DEV_DOMAIN=http://192.168.99.100:2369
         volumes:
           - ./your/contentfolder:/var/lib/ghost/
         ports:
-            - 2368:2368
+            - "2369:2368"
