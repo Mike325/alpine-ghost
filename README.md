@@ -76,7 +76,7 @@ This image also runs with containers. It will accept a volume from your ghost co
 
 To run this container with the predefined defaults:
 
-    docker run -p 2368:2368 zzrot/alpine-ghost
+    docker run -p 2368:2368 mike325/alpine-ghost
 
 Now the Ghost container will be available at your.dockermachine.ip:2368.
 
