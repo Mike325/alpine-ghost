@@ -1,10 +1,11 @@
-FROM zzrot/alpine-node:v4.4.2
-MAINTAINER ZZROT LLC <docker@zzrot.com>
+FROM alpine:edge
+
+RUN apk add --update nodejs nodejs-npm && npm install npm@latest -g 
 
 #ENV VARIABLES
 ENV GHOST_SOURCE /usr/src/app
 ENV GHOST_CONTENT /var/lib/ghost
-ENV GHOST_VERSION 0.11.4
+ENV GHOST_VERSION 0.11.11
 
 #Change WORKDIR to ghost directory
 WORKDIR $GHOST_SOURCE
@@ -14,11 +15,12 @@ RUN apk --no-cache add tar tini \
     && wget -O ghost.zip https://github.com/TryGhost/Ghost/releases/download/${GHOST_VERSION}/Ghost-${GHOST_VERSION}.zip \
 	# && wget -O ghost.zip "https://ghost.org/archives/ghost-${GHOST_VERSION}.zip" \
 	&& unzip ghost.zip \
+    && npm install node-pre-gyp \
 	&& npm install --production \
 	&& npm install mysql \
 	&& rm ghost.zip \
 	&& apk del devs \
-	&& npm cache clean \
+	&& npm cache clean --force \
 	&& rm -rf /tmp/npm*
 
 #Copy over our configuration filename
